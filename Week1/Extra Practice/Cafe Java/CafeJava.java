@@ -23,7 +23,7 @@ public class CafeJava {
         boolean isReadyOrder1 = false;
         boolean isReadyOrder2 = true;
         boolean isReadyOrder3 = true;
-        boolean isReadyOrder4 = true;
+        boolean isReadyOrder4 = false;
     
         // APP INTERACTION SIMULATION (Add your code for the challenges below)
         // Example:
@@ -45,6 +45,7 @@ public class CafeJava {
         } else {
             double totalPrice = 0.0;
             totalPrice += cappucinoPrice;
+            totalPrice += mochaPrice;
             System.out.println(customer4 + readyMessage);
             System.out.println(displayTotalMessage + totalPrice);
         }
