@@ -28,15 +28,28 @@ public class TestCafe {
         menu.add("mocha");
         appTest.displayMenu(menu);
     
-        // System.out.println("\n----- Add Customer Test-----");
-        // ArrayList<String> customers = new ArrayList<String>();
-        // // --- Test 4 times ---
-        // for (int i = 0; i < 4; i++) {
-        //     appTest.addCustomer(customers);
-        //     System.out.println("\n");
-        // }
+        System.out.println("\n----- Add Customer Test-----");
+        ArrayList<String> customers = new ArrayList<String>();
+        // --- Test 4 times ---
+        for (int i = 0; i < 4; i++) {
+            appTest.addCustomer(customers);
+            System.out.println("\n");
+        }
 
         System.out.println("\n----- Add Price Chart Test-----");
         appTest.printPriceChart("Columbian Coffee Grounds", 15.0, 3);
+
+        System.out.println("\n----- Overloaded Menu Test-----");
+        ArrayList<Double> priceChart = new ArrayList<Double>();
+        priceChart.add(1.5);
+        priceChart.add(3.5);
+        priceChart.add(4.5);
+        priceChart.add(3.5);
+        appTest.displayMenu(menu, priceChart);
+
+        System.out.println("\n----- Add Multiple Customers Test-----");
+        ArrayList<String> customersMulti = new ArrayList<String>();
+        appTest.addCustomers(customersMulti);
+        System.out.println(customersMulti.toString());
     }
 }

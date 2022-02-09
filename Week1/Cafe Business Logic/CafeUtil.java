@@ -28,13 +28,13 @@ public class CafeUtil {
         }
     }
 
-    public static boolean displaymenu(ArrayList<String> menuItems, ArrayList<Double> prices){
+    public static boolean displayMenu(ArrayList<String> menuItems, ArrayList<Double> prices){
         if (menuItems.size() != prices.size()){
             return false;
         }
 
         for (int i = 0; i < menuItems.size(); i++){
-            System.out.printf("%d %s -- $,.2f%n", i-1, menuItems.get(i), prices.get(i));
+            System.out.printf("%d %s -- $%,.2f%n", i, menuItems.get(i), prices.get(i));
         }
         return true;
     }
@@ -50,9 +50,14 @@ public class CafeUtil {
 
     public static void addCustomers(ArrayList<String> customers){
         System.out.println("Please enter each customer's name on a single line.  Quit by entering 'q' into the line.");
-        String customerName = "";
-        while (customerName.toLowerCase() != "q"){
-            customers.add(customerName);
+        String input = "";
+        while (true){
+            input = System.console().readLine();
+            if (input.toLowerCase().equals("q")){
+                return;
+            }
+            System.out.printf("Adding %s%n", input);
+            customers.add(input);
         }
     }
 
