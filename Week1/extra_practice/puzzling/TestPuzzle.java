@@ -1,3 +1,5 @@
+package week1.extra_practice.puzzling;
+
 import java.util.ArrayList;
 
 public class TestPuzzle {

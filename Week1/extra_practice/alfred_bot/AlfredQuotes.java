@@ -1,3 +1,5 @@
+package week1.extra_practice.alfred_bot;
+
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 public class AlfredQuotes {

@@ -1,3 +1,5 @@
+package week1.extra_practice.cafe_java;
+
 public class CafeJava {
     public static void main(String[] args) {
         // APP VARIABLES

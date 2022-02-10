@@ -1,3 +1,5 @@
+package week1.extra_practice.alfred_bot;
+
 public class AlfredTest {
     /*
     * This main method will always be the launch point for a Java application
