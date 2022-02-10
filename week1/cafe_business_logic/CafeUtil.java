@@ -1,8 +1,10 @@
+package week1.cafe_business_logic;
+
 import java.util.ArrayList;
 
 public class CafeUtil {
     
-    public static int getStreakGoal(int numWeeks){
+    public int getStreakGoal(int numWeeks){
         int drinkGoal = 0;
         for (int i = 1; i <= numWeeks; i++){
             drinkGoal += i;
@@ -10,11 +12,11 @@ public class CafeUtil {
         return drinkGoal;
     }
     
-    public static int getStreakGoal(){
+    public int getStreakGoal(){
         return getStreakGoal(10);
     }
 
-    public static double getOrderTotal(double[] prices){
+    public double getOrderTotal(double[] prices){
         double grandTotal = 0.00;
         for (int i = 0; i < prices.length; i++){
             grandTotal += prices[i];
@@ -22,13 +24,13 @@ public class CafeUtil {
         return grandTotal;
     }
 
-    public static void displayMenu(ArrayList<String> menuItems){
+    public void displayMenu(ArrayList<String> menuItems){
         for (int i = 0; i < menuItems.size(); i++){
             System.out.printf("%d %s%n", i, menuItems.get(i));
         }
     }
 
-    public static boolean displayMenu(ArrayList<String> menuItems, ArrayList<Double> prices){
+    public boolean displayMenu(ArrayList<String> menuItems, ArrayList<Double> prices){
         if (menuItems.size() != prices.size()){
             return false;
         }
@@ -39,7 +41,7 @@ public class CafeUtil {
         return true;
     }
 
-    public static void addCustomer(ArrayList<String> customers){
+    public void addCustomer(ArrayList<String> customers){
         System.out.println("Please enter your name:");
         String userName = System.console().readLine();
         System.out.printf("Hello, %s%n", userName);
@@ -48,7 +50,7 @@ public class CafeUtil {
         System.out.println(customers.toString());
     }
 
-    public static void addCustomers(ArrayList<String> customers){
+    public void addCustomers(ArrayList<String> customers){
         System.out.println("Please enter each customer's name on a single line.  Quit by entering 'q' into the line.");
         String input = "";
         while (true){
@@ -61,7 +63,7 @@ public class CafeUtil {
         }
     }
 
-    public static void printPriceChart(String product, double price, int maxQuantity){
+    public void printPriceChart(String product, double price, int maxQuantity){
         System.out.println(product);
         for (int i = 1; i <= maxQuantity; i++){
             System.out.printf("%d - $%,.2f%n", i, price * i - (0.5 * (i - 1)));

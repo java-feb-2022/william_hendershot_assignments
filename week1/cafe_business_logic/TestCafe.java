@@ -1,5 +1,6 @@
+package week1.cafe_business_logic;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 public class TestCafe {
     public static void main(String[] args) {
         
