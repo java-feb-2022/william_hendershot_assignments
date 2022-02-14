@@ -1,4 +1,4 @@
-package week2.extra_practice.baristas_challenge;
+package week2.extra_practice.coffeedore_64;
 
 import java.util.ArrayList;
 
