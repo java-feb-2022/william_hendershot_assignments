@@ -1,4 +1,4 @@
-package week2.extra_practice.zoo_keep_part_1;
+package week2.zoo_keeper_part_2;
 
 public class Gorilla extends Mammal{
     
