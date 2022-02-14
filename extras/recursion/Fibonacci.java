@@ -28,7 +28,7 @@ public class Fibonacci {
         for (int i = 0; i <= 200; i++){
             System.out.printf("Trying memo(%d): ", i);
             startTime = System.currentTimeMillis();
-            System.out.println(memo(i));
+            System.out.println(memo2(i));
             endTime = System.currentTimeMillis();
             System.out.printf("The call took %d ms to finish.%n", endTime - startTime);
         }
@@ -53,5 +53,18 @@ public class Fibonacci {
         if (n == 1) { return 1; }
         memory.put(n, memo(n - 1, memory) + memo(n - 2, memory));
         return memory.get(n);
+    }
+
+    public static int memo2(int n) {
+        int[] memory = new int[n + 1];
+        return memo2(n, memory);
+    }
+
+    public static int memo2(int n, int[] memory) {
+        if (n>=2 && memory[n] != 0) { return memory[n]; }
+        if (n == 0) { return 0; }
+        if (n == 1) { return 1; }
+        memory[n] = memo2(n - 1, memory) + memo2(n - 2, memory);
+        return memory[n];
     }
 }
