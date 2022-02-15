@@ -10,6 +10,11 @@ public class Item {
         setPrice(price);
     }
 
+    public Item() {
+        setName("Well...");
+        setPrice(50.00);
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -26,4 +31,7 @@ public class Item {
         return this.price;
     }
 
+    public String toString() {
+        return String.format("%s: $%,.2f", this.name, this.price);
+    }
 }

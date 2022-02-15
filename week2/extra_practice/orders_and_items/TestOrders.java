@@ -1,5 +1,7 @@
 package week2.extra_practice.orders_and_items;
 
+import java.util.ArrayList;
+
 public class TestOrders {
     
     public static void main(String[] args) {
@@ -10,7 +12,11 @@ public class TestOrders {
         Item item2 = new Item("latte", 2.0);
         Item item3 = new Item("drip coffee", 0.5);
         Item item4 = new Item("capuccino", 1.5);
+        Item item5 = new Item();
         
+        System.out.println(item5);
+        item5.setName("mocha");
+        System.out.println(item5);
 
         // Create 4 order variables of type Order and instantiate each as an Order object. Name them order1, order2 etc.
         // Set each order's name -- "Cindhuri", "Jimmy", "Noah", "Sam".
@@ -32,6 +38,7 @@ public class TestOrders {
 
         // order3 ordered a cappucino. Add the cappuccino to their order list and to their tab.
         order3.addItem(item4);
+        order3.addItem("Tea", 5.00);
         System.out.println(order3);
 
         // order4 added a latte. Update accordingly.
@@ -52,5 +59,17 @@ public class TestOrders {
         // Jimmy’s order is now ready. Update his status.
         order2.toggleReady();
         System.out.println(order2);
+        
+        ArrayList<Item> itemPlay = new ArrayList<Item>();
+        itemPlay.add(new Item("Tea", 5.0));
+        itemPlay.add(new Item("Cola", 2.0));
+        itemPlay.add(new Item("Loose Leaf", 0.50));
+        itemPlay.add(new Item("Mocha", 25.0));
+
+        Order order5 = new Order("Phong");
+        for (Item item : itemPlay) {
+            order5.addItem(item);
+        }
+        System.out.println(order5);
     }
 }
