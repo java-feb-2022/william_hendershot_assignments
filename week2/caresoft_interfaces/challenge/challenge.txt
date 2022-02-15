@@ -126,6 +126,7 @@ Expected to assign the pin to the user (as a member variable)
 boolean accessAuthorized(Integer)	Compares the ids, and if they are not a match,
 creates an incident report using the  authIncident method,
 Returns true if ids match, false if not.
+
 The AdminUser class implements the HIPAACompliantAdmin interface in the following ways:
 
 ArrayList<String> reportSecurityIncidents()	Returns a list of strings (incidents reported)
