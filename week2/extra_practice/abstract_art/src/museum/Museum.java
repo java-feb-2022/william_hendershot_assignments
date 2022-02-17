@@ -25,6 +25,7 @@ public class Museum {
         this.gallery.add(art);
     }
 
+    @SuppressWarnings("unchecked")
     public void displayArtRandomly() {
         ArrayList<Art> temp = (ArrayList<Art>) this.getGallery().clone();
         Collections.shuffle(temp);
