@@ -1,4 +1,4 @@
-package week2.extra_practice.doubly_linked_list.challenge;
+package week2.extra_practice.doubly_linked_list;
 
 public class DLL {
     public Node head;
