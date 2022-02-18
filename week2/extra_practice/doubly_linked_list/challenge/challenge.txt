@@ -1,0 +1,97 @@
+Doubly Linked List
+Objectives:
+What are the differences between singly linked lists and doubly linked lists?
+Construct a doubly linked list using OOP
+Previously, you have learned about Singly Linked Lists. If you recall correctly, a Singly Linked List is a data structure where nodes are connected to each other by one reference point, typically called 'next'. However, there is no reason for nodes to only point in one direction. In fact, Doubly Linked List (DLL) proposes that nodes are connected in two directions: forward and backward. By adding a reference to nodes in both directions, it is much easier to iterate back and forth our list. However, this comes with a cost. When implementing your DLL, we need to make sure that both pointers are correct. Let's look at some code.
+
+com.codingdojo.dll.Node
+package com.codingdojo.dll;
+public class Node {
+    public Integer value;
+    public Node previous;
+    public Node next;
+    
+    public Node(Integer val) {
+        this.value = val;
+        this.previous = null;
+        this.next = null;
+    }
+}
+copy
+Let's look at the member variables of our DLL Node:
+
+Integer value: The value that our node is going to hold.
+Node previous: The reference to the previous node.
+Node next: The reference to the next node.
+That's it! We have created nodes that will point both forward and backward. Next, we need to create our Doubly Linked List.
+
+com.codingdojo.dll.DLL
+package com.codingdojo.dll;
+public class DLL {
+    public Node head;
+    public Node tail;
+    
+    public DLL() {
+        this.head = null;
+        this.tail = null;
+    }
+    
+    // the push method will add a new node to the end of the list
+    public void push(Node newNode) {
+        // if there is no head in the list, aka, an empty list, we set the newNode to be the head and tail of the list
+        if(this.head == null) {
+            this.head = newNode;
+            this.tail = newNode;
+            return;
+        }
+        
+        // first find the lastNode in the list
+        // then, set the lastNode's next to be the newNode;
+        // then, we have to set the previous of the lastNode to the lastNode that we found previously.
+        // finally, set the list's tail to be the node that we have added
+        Node lastNode = this.tail;
+        lastNode.next = newNode;
+        newNode.previous = lastNode;
+        this.tail = newNode;
+    }
+    
+    public void printValuesForward() {
+        // find the first node, aka head.
+        Node current = this.head;
+        
+        // while the current node exists...
+        while(current != null) {
+            // print it's value
+            System.out.println(current.value);
+            // and move on to it's next node.
+            current = current.next;
+        }
+    }
+}copy
+com.codingdojo.dll.DLLTest
+package com.codingdojo.dll;
+public class DLLTest {
+    public static void main(String[] args) {
+        DLL dll = new DLL();
+        Node n1 = new Node(10);
+        Node n2 = new Node(20);
+        Node n3 = new Node(50);
+        Node n4 = new Node(60);
+        Node n5 = new Node(80);
+        Node n6 = new Node(100);
+        
+        dll.push(n1);
+        dll.push(n2);
+        dll.push(n3);
+        dll.push(n4);
+        dll.push(n5);
+        dll.push(n6);
+        
+        dll.printValuesForward();
+        
+    }
+}copy
+Let's look at the member variables of our DLL:
+
+Node head: The reference to the first node of the list
+Node tail: The reference to the last node of the list.
