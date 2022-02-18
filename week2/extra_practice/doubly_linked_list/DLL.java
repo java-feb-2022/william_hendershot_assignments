@@ -3,10 +3,12 @@ package week2.extra_practice.doubly_linked_list;
 public class DLL {
     public Node head;
     public Node tail;
+    public int size;
     
     public DLL() {
         this.head = null;
         this.tail = null;
+        this.size = 0;
     }
     
     // the push method will add a new node to the end of the list
@@ -15,6 +17,7 @@ public class DLL {
         if(this.head == null) {
             this.head = newNode;
             this.tail = newNode;
+            this.size++;
             return;
         }
         
@@ -26,6 +29,7 @@ public class DLL {
         lastNode.next = newNode;
         newNode.previous = lastNode;
         this.tail = newNode;
+        this.size++;
     }
     
     public void printValuesForward() {
@@ -40,4 +44,44 @@ public class DLL {
             current = current.next;
         }
     }
+
+    public void printValuesBackward() {
+        Node current = this.tail;
+        while (current != null) {
+            System.out.println(current.value);
+            current = current.previous;
+        }
+    }
+
+    public Integer pop() {
+        if (this.size  > 0){
+            Node result = this.tail;
+            if (this.head == this.tail) {
+                this.head = null;
+                this.tail = null;
+            } else {
+                this.tail.previous.next = null;
+                this.tail = this.tail.previous;
+            }
+            size--;
+            return result.value;
+        }
+
+        throw new IllegalStateException("Nothing to pop!");
+    }
+
+    public int size() {
+        return this.size;
+    }
+
+    public boolean contains (int value) {
+        boolean found = false;
+        Node current = this.head;
+        while (!found && current != null){
+            found = value == current.value;
+            current = current.next;
+        }
+        return found;
+    }
 }
+

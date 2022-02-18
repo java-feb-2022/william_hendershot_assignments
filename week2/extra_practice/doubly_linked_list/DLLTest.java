@@ -18,6 +18,22 @@ public class DLLTest {
         dll.push(n6);
         
         dll.printValuesForward();
-        
+        System.out.println();
+        dll.printValuesBackward();
+        System.out.println();
+        System.out.println(dll.pop());
+        System.out.println();
+        dll.printValuesBackward();
+        dll.printValuesForward();
+
+        System.out.println();
+        System.out.println(dll.size());
+
+        System.out.println();
+        System.out.println("Does 10 exist within the list?");
+        System.out.println(dll.contains(10));
+        System.out.println();
+        System.out.println("Does 110 exist within the list?");
+        System.out.println(dll.contains(110));
     }
 }
