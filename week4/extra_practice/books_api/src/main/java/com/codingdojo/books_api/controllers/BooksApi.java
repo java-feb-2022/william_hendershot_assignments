@@ -53,4 +53,10 @@ public class BooksApi {
         book.setNum_of_pages(num_of_pages);
         return bookService.updateBook(book);
     }
+
+    @PostMapping("/api/books/{book_id}/delete")
+    public void api_delete_book(@PathVariable("book_id") Long book_id) {
+        Book book = bookService.findBook(book_id);
+        bookService.deleteBook(book);
+    }
 }
