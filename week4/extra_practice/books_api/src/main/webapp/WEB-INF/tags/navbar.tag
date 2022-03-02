@@ -10,7 +10,7 @@
                     <a class="nav-link" aria-current="page" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="/">Go somewhere!</a>
+                    <a class="nav-link" aria-current="page" href="/books">Books</a>
                 </li>
             </ul>
         </div>

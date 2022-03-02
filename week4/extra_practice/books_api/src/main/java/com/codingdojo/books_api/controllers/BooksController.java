@@ -1,5 +1,7 @@
 package com.codingdojo.books_api.controllers;
 
+import java.util.List;
+
 import com.codingdojo.books_api.models.Book;
 import com.codingdojo.books_api.services.BookService;
 
@@ -17,6 +19,11 @@ public class BooksController {
         this.bookService = bookService;
     }
     
+    @GetMapping("/")
+    public String show_index() {
+        return "index.jsp";
+    }
+
     @GetMapping("/books/{book_id}")
     public String show_book_by_id(@PathVariable(value = "book_id") Long book_id, Model model) {
         model.addAttribute("page_title", "Reading Books");
@@ -28,5 +35,15 @@ public class BooksController {
         model.addAttribute("book_language", book.getLanguage());
         model.addAttribute("book_num_of_pages", book.getNum_of_pages());
         return "show.jsp";
+    }
+
+    @GetMapping("/books")
+    public String show_books(Model model) {
+        
+        model.addAttribute("page_title", "Reading Rainbow!");
+        List<Book> books = bookService.allBooks();
+        model.addAttribute("books", books);
+
+        return "show_all_books.jsp";
     }
 }
