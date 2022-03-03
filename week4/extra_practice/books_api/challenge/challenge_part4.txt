@@ -1,0 +1,28 @@
+Objectives:
+Add a create page to your application
+Overview of the flow of data
+Be familiar with the shorter @GetMapping and @PostMapping
+Data-Flow Overview
+Note: For this video, you do not need to code along or save the code, as we'll be learning and implementing data binding in the next lesson.
+
+
+We’ll now allow our users to enter information on our site through a form. You’ve already practiced sending form data in other assignments. Your new method for processing the form could look a lot like the route to create a book in your old API controller. 
+
+// Note: We'll be altering this a bit after we introduce data binding.
+@PostMapping("/books")
+public String create(
+    @RequestParam("title") String title,
+    @RequestParam("description") String description,
+    @RequestParam("language") String language,
+    @RequestParam("pages") Integer pages,) 
+{
+    // CODE TO MAKE A NEW BOOK AND SAVE TO THE DB
+    Book book = new Book(title, description, lang, numOfPages);
+    bookService.createBook(book);
+    return "redirect:/dashboard";
+}
+copy
+The only difference in the method above compared to in your API controller is that we redirect to the /books route to show that the newly added book was added to the book list. Don’t forget we’ll need to show the the new page. And for that we’ll need a separate route. When the user visits "/books/new", we want to show them the form to create the book.
+
+
+Ninja Challenge: Challenge yourself and add create functionality to your Books app using what you already know.
