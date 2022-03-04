@@ -2,14 +2,19 @@ package com.codingdojo.books_api.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import com.codingdojo.books_api.models.Book;
 import com.codingdojo.books_api.services.BookService;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -37,6 +42,21 @@ public class BooksController {
         model.addAttribute("book_language", book.getLanguage());
         model.addAttribute("book_num_of_pages", book.getNum_of_pages());
         return "show.jsp";
+    }
+
+    @PutMapping("/books/{book_id}")
+    public String update_book(
+        @Valid @ModelAttribute("book") Book book,
+        BindingResult result,
+        @PathVariable("book_id") Long book_id
+    ) {
+        if (result.hasErrors()) {
+            System.out.println(result.getAllErrors());
+            return "update_book.jsp";
+        }
+
+        bookService.updateBook(book);
+        return "redirect:/books/{book_id}";
     }
 
     @GetMapping("/books")
@@ -69,26 +89,6 @@ public class BooksController {
         return "redirect:/books";
     }
 
-
-    @PostMapping("/books/{book_id}")
-    public String update_book(
-        @PathVariable("book_id") Long book_id,
-        @RequestParam("book_title") String title,
-        @RequestParam("book_description") String description,
-        @RequestParam("book_language") String language,
-        @RequestParam("book_num_of_pages") Integer pages
-    ) {
-
-        Book book = bookService.findBook(book_id);
-        book.setTitle(title);
-        book.setDescription(description);
-        book.setLanguage(language);
-        book.setNum_of_pages(pages);
-        bookService.updateBook(book);
-
-        return String.format("redirect:/books/%s", book_id);
-    }
-
     @GetMapping("/books/{book_id}/update")
     public String show_update_book(
         @PathVariable("book_id") Long book_id,
@@ -96,12 +96,7 @@ public class BooksController {
     ) {
         model.addAttribute("page_title", "Editing");
         Book book = bookService.findBook(book_id);
-        model.addAttribute("book_id", book.getId());
-        model.addAttribute("book_title", book.getTitle());
-        model.addAttribute("book_language", book.getLanguage());
-        model.addAttribute("book_description", book.getDescription());
-        model.addAttribute("book_num_of_pages", book.getNum_of_pages());
-
+        model.addAttribute("book", book);
         return "update_book.jsp";
     }
 
