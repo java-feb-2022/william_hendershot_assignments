@@ -50,7 +50,6 @@ public class ExpenseController {
     ) {
 
         if (result.hasErrors()) {
-            System.out.println(result);
             return "expenses/show.jsp";
         }
         expenseService.create(expense);
