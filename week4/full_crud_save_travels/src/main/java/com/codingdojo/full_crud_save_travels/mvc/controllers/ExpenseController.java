@@ -10,6 +10,7 @@ import com.codingdojo.full_crud_save_travels.mvc.services.ExpenseService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -62,6 +63,19 @@ public class ExpenseController {
         return "redirect:/expenses";
     }
 
+    @GetMapping("/expenses/{id}")
+    public String show_details(
+        @PathVariable("id") Long id,
+        Model model
+    ) {
+        
+        Expense e = expenseService.get(id);
+        model.addAttribute("paget_title", "Show Expense");
+        model.addAttribute("expense", e);
+        
+        return "expenses/details.jsp";
+    }
+
     @GetMapping("/expenses/edit/{id}")
     public String show_edit(
         @PathVariable("id") Long id,
@@ -94,6 +108,12 @@ public class ExpenseController {
 
         expenseService.update(e);
         
+        return "redirect:/expenses";
+    }
+
+    @DeleteMapping("expenses/delete/{id}")
+    public String delete(@PathVariable("id") Long id) {
+        expenseService.delete(id);
         return "redirect:/expenses";
     }
 }
