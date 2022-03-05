@@ -33,7 +33,7 @@ public class ExpenseService {
         expenseRepository.delete(e);
     }
 
-    public Expense find(Long id) {
+    public Expense get(Long id) {
         Optional<Expense> optional = expenseRepository.findById(id);
         if (optional.isPresent()) {
             return optional.get();
