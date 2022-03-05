@@ -1,10 +1,10 @@
-package com.codingdojo.save_travels.mvc.services;
+package com.codingdojo.full_crud_save_travels.mvc.services;
 
 import java.util.List;
 import java.util.Optional;
 
-import com.codingdojo.save_travels.mvc.models.Expense;
-import com.codingdojo.save_travels.mvc.repositories.ExpenseRepository;
+import com.codingdojo.full_crud_save_travels.mvc.models.Expense;
+import com.codingdojo.full_crud_save_travels.mvc.repositories.ExpenseRepository;
 
 import org.springframework.stereotype.Service;
 

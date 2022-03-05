@@ -1,11 +1,11 @@
-package com.codingdojo.save_travels.mvc.controllers;
+package com.codingdojo.full_crud_save_travels.mvc.controllers;
 
 import java.util.List;
 
 import javax.validation.Valid;
 
-import com.codingdojo.save_travels.mvc.models.Expense;
-import com.codingdojo.save_travels.mvc.services.ExpenseService;
+import com.codingdojo.full_crud_save_travels.mvc.models.Expense;
+import com.codingdojo.full_crud_save_travels.mvc.services.ExpenseService;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

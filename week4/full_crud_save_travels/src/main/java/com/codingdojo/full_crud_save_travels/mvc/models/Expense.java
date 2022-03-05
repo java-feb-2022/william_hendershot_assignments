@@ -1,4 +1,4 @@
-package com.codingdojo.save_travels.mvc.models;
+package com.codingdojo.full_crud_save_travels.mvc.models;
 
 import java.util.Date;
 
@@ -129,4 +129,13 @@ public class Expense {
         this.amount = amount;
     }
 
+    public String toString() {
+        String result = "";
+        result  += String.format("Id: %s%n", id);
+        result  += String.format("Name: %s%n", name);
+        result  += String.format("Vendor: %s%n", vendor);
+        result  += String.format("Amount: %f%n", amount);
+        result  += String.format("Description: %s%n", description);
+        return result;
+    }
 }

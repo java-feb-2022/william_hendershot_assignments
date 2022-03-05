@@ -3,10 +3,6 @@
 <%@ include file="/WEB-INF/tags/general/taglibs.jspf" %>
 <%@ page isErrorPage="true" %>
 <general:layout>
-    <div class="container">
-        <expenses:list></expenses:list>
-    </div>
-    <div class="container">
-        <expenses:create></expenses:create>
-    </div>
+    <expenses:list></expenses:list>
+    <expenses:create></expenses:create>
 </general:layout>
