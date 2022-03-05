@@ -40,12 +40,10 @@ public class Book {
     @Min(100)
     private Integer num_of_pages;
 
-    @NotNull
     @Column(updatable=false)
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date created_at;
 
-    @NotNull
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date updated_at;
 
@@ -123,5 +121,18 @@ public class Book {
     @PreUpdate
     protected void onUpdate() {
         this.updated_at = new Date();
+    }
+
+    @Override
+    public String toString() {
+        String result = "";
+        result += String.format("Id: %s%n", id);
+        result += String.format("Title: %s%n", title);
+        result += String.format("Description: %s%n", description);
+        result += String.format("Language: %s%n", language);
+        result += String.format("Number of pages: %d%n", num_of_pages);
+        result += String.format("Created at: %s%n", created_at);
+        result += String.format("Updated at: %s%n", updated_at);
+        return result;
     }
 }

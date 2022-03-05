@@ -44,19 +44,39 @@ public class BooksController {
         return "show.jsp";
     }
 
-    @PutMapping("/books/{book_id}")
+    @GetMapping("/books/{book_id}/update")
+    public String show_update_book(
+        @PathVariable("book_id") Long book_id,
+        Model model
+    ) {
+        model.addAttribute("page_title", "Editing");
+        Book book = bookService.findBook(book_id);
+        model.addAttribute("book", book);
+        System.out.printf("Update get: %n%s%n", book);
+        return "update_book.jsp";
+    }
+
+    @PutMapping("/books/{id}/update")
     public String update_book(
         @Valid @ModelAttribute("book") Book book,
         BindingResult result,
-        @PathVariable("book_id") Long book_id
+        @PathVariable("id") Long id
     ) {
+        System.out.printf("Update put: %n%s%n", book);
         if (result.hasErrors()) {
             System.out.println(result.getAllErrors());
             return "update_book.jsp";
         }
 
         bookService.updateBook(book);
-        return "redirect:/books/{book_id}";
+        return "redirect:/books/{id}";
+    }
+
+    @PostMapping("/books/{book_id}/delete")
+    public String delete_book(@PathVariable("book_id") Long book_id) {
+        Book book = bookService.findBook(book_id);
+        bookService.deleteBook(book);
+        return "redirect:/books";
     }
 
     @GetMapping("/books")
@@ -87,17 +107,6 @@ public class BooksController {
         Book book = new Book(title, description, language, pages);
         bookService.createBook(book);
         return "redirect:/books";
-    }
-
-    @GetMapping("/books/{book_id}/update")
-    public String show_update_book(
-        @PathVariable("book_id") Long book_id,
-        Model model
-    ) {
-        model.addAttribute("page_title", "Editing");
-        Book book = bookService.findBook(book_id);
-        model.addAttribute("book", book);
-        return "update_book.jsp";
     }
 
 }
