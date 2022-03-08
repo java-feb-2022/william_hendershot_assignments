@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class LanguageController {
@@ -36,12 +37,17 @@ public class LanguageController {
     }
 
     @GetMapping("/languages")
-    public String show_languages(Model model) {
+    public String show_languages(
+        Model model
+    ) {
 
         List<Language> languages = languageService.getAll();
 
         model.addAttribute("page_title", "Languages");
         model.addAttribute("languages", languages);
+        if (!model.containsAttribute("language")){
+            model.addAttribute("language", new Language());
+        }
 
         return "languages/index.jsp";
     }
@@ -49,11 +55,14 @@ public class LanguageController {
     @PostMapping("/languages")
     public String create_language (
         @Valid @ModelAttribute Language language,
-        BindingResult result
+        BindingResult result,
+        RedirectAttributes redirAttr
     ) {
-        
+
         if (result.hasErrors()) {
-            return "languages/index.jsp";
+            redirAttr.addFlashAttribute("org.springframework.validation.BindingResult.language", result);
+            redirAttr.addFlashAttribute("language", language);
+            return "redirect:/languages";
         }
 
         languageService.create(language);
@@ -87,14 +96,14 @@ public class LanguageController {
         return "languages/edit.jsp";
     }
 
-    @PutMapping("/languages/{id}/edit")
+    @PutMapping("/languages/{id}")
     public String edit (
         @Valid @ModelAttribute("language") Language language,
         BindingResult result,
         @PathVariable("id") Long id
     ) {
         if (result.hasErrors()) {
-            return "langauges/edit.jsp";
+            return "languages/edit.jsp";
         }
 
         Language _l = languageService.get(id);

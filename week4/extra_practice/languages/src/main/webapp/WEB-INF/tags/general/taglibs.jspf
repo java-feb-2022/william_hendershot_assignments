@@ -3,4 +3,4 @@
 <%@ taglib prefix = "form" uri = "http://www.springframework.org/tags/form"%>
 
 <%@ taglib prefix = "general" tagdir = "/WEB-INF/tags/general" %>
-<%@ taglib prefix = "expenses" tagdir = "/WEB-INF/tags/expenses" %>
+<%@ taglib prefix = "languages" tagdir = "/WEB-INF/tags/languages" %>
