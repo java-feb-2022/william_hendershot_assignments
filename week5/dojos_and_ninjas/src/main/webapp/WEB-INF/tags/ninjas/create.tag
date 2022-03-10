@@ -5,9 +5,9 @@
             <div class="card">
                 <form:form method="post" action="/ninjas" class="card-body" modelAttribute="ninja">
                     <div class="row mb-3">
-                        <form:label path="dojo" for="dojo_name" class="col-sm-3 col-form-label">Dojo:</label>
+                        <form:label path="dojo" for="dojo_name" class="col-sm-3 col-form-label">Dojo:</form:label>
                         <div class="col-sm-9">
-                            <form:select path="id" name="dojo_id" class="form-select">
+                            <form:select path="dojo" name="dojo_id" class="form-select">
                                 <form:options items="${dojos}" itemValue="id" itemLabel="name"></form:options>
                             </form:select>
                         </div>

@@ -51,7 +51,7 @@ public class Ninja {
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "dojo_id", nullable = false)
+    @JoinColumn(name = "dojo_id")
     private Dojo dojo;
 
     public Ninja() {}

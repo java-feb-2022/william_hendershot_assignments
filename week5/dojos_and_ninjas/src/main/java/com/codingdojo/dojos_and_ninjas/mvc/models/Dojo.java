@@ -97,8 +97,7 @@ public class Dojo {
 
     @Override
     public String toString() {
-        return "Dojo [created_at=" + created_at + ", id=" + id + ", name=" + name + ", ninjas=" + ninjas
-                + ", updated_at=" + updated_at + "]";
+        return "Dojo [created_at=" + created_at + ", id=" + id + ", name=" + name + ", updated_at=" + updated_at + "]";
     }
 
 }
