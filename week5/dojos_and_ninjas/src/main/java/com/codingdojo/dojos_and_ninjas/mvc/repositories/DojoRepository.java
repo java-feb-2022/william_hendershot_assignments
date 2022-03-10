@@ -10,5 +10,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface DojoRepository extends CrudRepository<Dojo, Long> {
     
-    List<Dojo> findAll();
+    public List<Dojo> findAll();
 }
