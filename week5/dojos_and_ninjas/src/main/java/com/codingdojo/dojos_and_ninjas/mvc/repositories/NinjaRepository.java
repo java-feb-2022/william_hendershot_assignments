@@ -11,4 +11,6 @@ import org.springframework.stereotype.Repository;
 public interface NinjaRepository extends CrudRepository<Ninja, Long> {
     
     public List<Ninja> findAll();
+
+    public List<Ninja> findByDojo_id(Long dojo_id);
 }
