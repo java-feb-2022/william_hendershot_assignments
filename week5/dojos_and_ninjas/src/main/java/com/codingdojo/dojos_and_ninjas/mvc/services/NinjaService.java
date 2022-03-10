@@ -3,6 +3,7 @@ package com.codingdojo.dojos_and_ninjas.mvc.services;
 import java.util.List;
 import java.util.Optional;
 
+import com.codingdojo.dojos_and_ninjas.mvc.models.Dojo;
 import com.codingdojo.dojos_and_ninjas.mvc.models.Ninja;
 import com.codingdojo.dojos_and_ninjas.mvc.repositories.NinjaRepository;
 
@@ -21,8 +22,8 @@ public class NinjaService {
         return ninjaRepository.findAll();
     }
 
-    public List<Ninja> getAllByDojo(Long dojo_id) {
-        return ninjaRepository.findByDojo_id(dojo_id);
+    public List<Ninja> getAllByDojo(Dojo dojo) {
+        return ninjaRepository.findAllByDojo(dojo);
     }
 
     public Ninja create(Ninja n) {
