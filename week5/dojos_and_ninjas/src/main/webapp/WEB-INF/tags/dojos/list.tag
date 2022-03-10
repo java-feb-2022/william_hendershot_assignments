@@ -11,7 +11,7 @@
         <tbody>
         <c:forEach var="dojo" items="${dojos}">
             <tr>
-                <td><a href="dojos/${dojo.id}">${dojo.name}</a></td>
+                <td><a href="/dojos/${dojo.id}">${dojo.name}</a></td>
                 <td class="col">
                     <div class="row justify-content-between">
                         <a class="col" href="/dojos/${dojo.id}/edit">edit</a>

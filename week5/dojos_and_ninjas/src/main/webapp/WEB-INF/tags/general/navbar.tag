@@ -12,15 +12,15 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" role="button" id="dojosDropdown" data-bs-toggle="dropdown" aria-current="page" href="#">Dojos</a>
                     <ul class="dropdown-menu" aria-labelledby="dojosDropdown">
-                        <li><a class="dropdown-item" href="dojos/new">Add Dojo</a></li>
-                        <li><a class="dropdown-item" href="dojos/">List Dojos</a></li>
+                        <li><a class="dropdown-item" href="/dojos/new">Add Dojo</a></li>
+                        <li><a class="dropdown-item" href="/dojos">List Dojos</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" role="button" id="ninjasDropdown" data-bs-toggle="dropdown" aria-current="page" href="#">Ninjas</a>
                     <ul class="dropdown-menu" aria-labelledby="ninjasDropdown">
-                        <li><a class="dropdown-item" href="ninjas/new">Add Ninja</a></li>
-                        <li><a class="dropdown-item" href="ninjas/">List Ninjas</a></li>
+                        <li><a class="dropdown-item" href="/ninjas/new">Add Ninja</a></li>
+                        <li><a class="dropdown-item" href="/ninjas">List Ninjas</a></li>
                     </ul>
                 </li>
             </ul>

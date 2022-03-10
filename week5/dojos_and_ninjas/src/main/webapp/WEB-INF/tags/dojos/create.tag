@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col col-sm-12">
             <div class="card">
-                <form:form method="post" action="/dojos" class="card-body" modelAttribute="language">
+                <form:form method="post" action="/dojos" class="card-body" modelAttribute="dojo">
                     <div class="row mb-3">
                         <form:label path="name" for="dojo_name" class="form-label">Name:</form:label>
                         <form:input path="name" type="text" class="form-control" name="dojo_name"/>

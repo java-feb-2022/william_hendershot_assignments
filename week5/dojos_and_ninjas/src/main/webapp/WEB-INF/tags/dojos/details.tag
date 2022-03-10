@@ -1,6 +1,7 @@
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ include file="/WEB-INF/tags/general/taglibs.jspf" %>
 <div class="container">
-    <h1>Dojos Details</h1>
+    <h1>Dojos Detail</h1>
     <div class="row">
         <p>Name: ${dojo.name}</p>
     </div>
@@ -11,4 +12,5 @@
             <input type="submit" class="btn btn-warning" value="delete">
         </form>
     </div>
+    <ninjas:list></ninjas:list>
 </div>
