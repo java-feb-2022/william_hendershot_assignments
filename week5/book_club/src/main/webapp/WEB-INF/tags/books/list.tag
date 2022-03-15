@@ -13,7 +13,7 @@
         <c:forEach var="book" items="${books}">
             <tr>
                 <td>${book.id}</td>
-                <td><a href='/books/${book.getId()}/>'>${book.title}</a></td>
+                <td><a href='/books/${book.id}'>${book.title}</a></td>
                 <td>${book.author}</td>
                 <td>${book.user.name}</td>
             </tr>
