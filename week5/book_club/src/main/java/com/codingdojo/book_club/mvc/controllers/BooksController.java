@@ -1,11 +1,15 @@
 package com.codingdojo.book_club.mvc.controllers;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import com.codingdojo.book_club.mvc.models.Book;
+import com.codingdojo.book_club.mvc.models.BookThought;
 import com.codingdojo.book_club.mvc.models.User;
 import com.codingdojo.book_club.mvc.services.BookService;
+import com.codingdojo.book_club.mvc.services.BookThoughtService;
 import com.codingdojo.book_club.mvc.services.UserService;
 
 import org.springframework.stereotype.Controller;
@@ -24,10 +28,12 @@ public class BooksController {
     
     private final BookService bookService;
     private final UserService userService;
+    private final BookThoughtService bookThoughtService;
 
-    public BooksController(BookService bookService, UserService userService) {
+    public BooksController(BookService bookService, UserService userService, BookThoughtService bookThoughtService) {
         this.bookService = bookService;
         this.userService = userService;
+        this.bookThoughtService = bookThoughtService;
     }
 
     @GetMapping("/books")
@@ -56,20 +62,24 @@ public class BooksController {
         if (session.getAttribute("user_id") == null || (Long) session.getAttribute("user_id") <= 0) { 
             return "redirect:/";
         }
-
+        
         model.addAttribute("page_title", "Add a New Book");
-        model.addAttribute("user", userService.get((Long) session.getAttribute("user_id")));
-        if (!model.containsAttribute("book")) {
-            model.addAttribute("book", new Book());
+        
+        // if (!model.containsAttribute("book")) {
+        //     model.addAttribute("book", new Book());
+        // }
+        if (!model.containsAttribute("book_thought")) {
+            model.addAttribute("book_thought", new BookThought());
         }
-
+        model.addAttribute("user", userService.get((Long) session.getAttribute("user_id")));
+        
         return "books/create.jsp";
     }
 
     @PostMapping("/books")
     public String createBook(
         HttpSession session,
-        @Valid @ModelAttribute("book") Book book,
+        @Valid @ModelAttribute("book_thought") BookThought bookThought,
         BindingResult result,
         RedirectAttributes redirAttr
     ) {
@@ -81,11 +91,18 @@ public class BooksController {
         if (result.hasErrors()) {
             System.out.println(result);
             redirAttr.addFlashAttribute("org.springframework.validation.BindingResult.book", result);
-            redirAttr.addFlashAttribute("book", book);
+            redirAttr.addFlashAttribute("book_thought", bookThought);
             return "redirect:/books/new";
         }
 
-        bookService.create(book);
+        System.out.println(bookThought);
+        Book _book = bookThought.getBook();
+        _book.setUser(bookThought.getUser());
+        System.out.println(_book);
+        //_book.setBookThoughts(new ArrayList<BookThought>());
+        //_book.getBookThoughts().add(bookThought);
+        bookService.create(_book);
+        bookThoughtService.create(bookThought);
 
         return "redirect:/books";
     }
@@ -171,7 +188,8 @@ public class BooksController {
         }
 
         Book book = bookService.get(id);
-        if (book.getUser().getId() == (Long) session.getAttribute("user_id")) {
+        System.out.println(book);
+        if (book.getUser().getId().equals((Long) session.getAttribute("user_id"))) {
             bookService.delete(book);
         }
 

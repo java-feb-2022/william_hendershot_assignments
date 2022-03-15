@@ -1,3 +1,4 @@
+<%@ include file="/WEB-INF/tags/general/taglibs.jspf" %>
 <nav class="navbar navbar-expand-sm navbar-light bg-light">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">Navbar 0.1</a>
@@ -22,7 +23,7 @@
                         <li><a class="dropdown-item" href="/thoughts">Thoughts</a></li>
                     </ul>
                 </li>
-                <c:if test = "${user_id}">
+                <c:if test="${user != null && user.id > 0}">
                     <li class="nav-item">
                         <form class="col" action="/logout" method="post">
                             <input type="submit" class="btn btn-primary" value="Logout">

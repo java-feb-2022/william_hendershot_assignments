@@ -1,6 +1,5 @@
 <%@ tag description="My generic layout" pageEncoding="UTF-8" %>
 <%@ include file="/WEB-INF/tags/general/taglibs.jspf" %>
-<%@ taglib prefix="c" uri = "http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html>
