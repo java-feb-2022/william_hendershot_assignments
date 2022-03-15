@@ -12,15 +12,23 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" role="button" id="booksDropdown" data-bs-toggle="dropdown" aria-current="page" href="#">Books</a>
                     <ul class="dropdown-menu" aria-labelledby="booksDropdown">
-                        <li><a class="dropdown-item" href="#">Add Book</a></li>
-                        <li><a class="dropdown-item" href="#">List All Books</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">My Bookshelf</a></li>
+                        <li><a class="dropdown-item" href="/books/new">Add Book</a></li>
+                        <li><a class="dropdown-item" href="/books">List Books</a></li>
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link btn btn-secondary" aria-current="page" href="/logout">Logout</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" role="button" id="thoughtsDropdown" data-bs-toggle="dropdown" aria-current="page" href="#">Thoughts</a>
+                    <ul class="dropdown-menu" aria-labelledby="thoughtsDropdown">
+                        <li><a class="dropdown-item" href="/thoughts">Thoughts</a></li>
+                    </ul>
                 </li>
+                <c:if test = "${user_id}">
+                    <li class="nav-item">
+                        <form class="col" action="/logout" method="post">
+                            <input type="submit" class="btn btn-primary" value="Logout">
+                        </form>
+                    </li>
+                </c:if>
             </ul>
         </div>
     </div>

@@ -4,3 +4,4 @@
 
 <%@ taglib prefix = "general" tagdir = "/WEB-INF/tags/general" %>
 <%@ taglib prefix = "login" tagdir = "/WEB-INF/tags/login" %>
+<%@ taglib prefix = "books" tagdir = "/WEB-INF/tags/books" %>

@@ -52,6 +52,7 @@ public class LoginController {
         HttpSession session
     ) {
 
+        //Validate user
         userService.validate(newUser, result);
         if (result.hasErrors()) {
             redirAttr.addFlashAttribute("org.springframework.validation.BindingResult.new_user", result);
@@ -59,11 +60,14 @@ public class LoginController {
             return "redirect:/";
         }
 
+        //Register user
         User user = userService.register(newUser);
         System.out.println(user);
-        //session.setAttribute("user_id", user.getId());
-        return "books/books.jsp";
-        // return "redirect:/books";
+        
+        //Put user into session
+        session.setAttribute("user_id", user.getId());
+
+        return "redirect:/books";
     }
 
     @PostMapping("/logout")
@@ -83,16 +87,18 @@ public class LoginController {
         HttpSession session
     ) {
 
+        //Authenticate user
+        User user = userService.authenticate(loginUser, result);
         if (result.hasErrors()) {
             redirAttr.addFlashAttribute("org.springframework.validation.BindingResult.potential_user", result);
             redirAttr.addFlashAttribute("potential_user", loginUser);
             return "redirect:/";
         }
 
-        User user = userService.authenticate(loginUser, result);
+        //Put user into session
         if (user != null) {
             session.setAttribute("user_id", user.getId());
-            return "books/books.jsp";
+            return "redirect:/books";
         }
         
         return "redirect:/";

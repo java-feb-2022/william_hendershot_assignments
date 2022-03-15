@@ -30,7 +30,8 @@
     
     <body>
         <header>
-            <general:navbar_login/>
+            
+            <general:navbar/>
         </header>
         <main>
             <jsp:doBody/>

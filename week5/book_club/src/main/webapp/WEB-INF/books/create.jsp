@@ -3,8 +3,7 @@
 <%@ include file="/WEB-INF/tags/general/taglibs.jspf" %>
 <general:layout>
     <div class="container">
-        <h1>Welcome, ${user.name}</h1>
-        <p>Books from everyone's shelves:</p>
+        <h1>Add a new Book to the Library</h1>
     </div>
-    <books:list/>
+    <books:create/>
 </general:layout>
