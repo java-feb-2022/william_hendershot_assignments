@@ -1,7 +1,5 @@
 package com.codingdojo.book_club.mvc.controllers;
 
-import java.util.ArrayList;
-
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -99,8 +97,6 @@ public class BooksController {
         Book _book = bookThought.getBook();
         _book.setUser(bookThought.getUser());
         System.out.println(_book);
-        //_book.setBookThoughts(new ArrayList<BookThought>());
-        //_book.getBookThoughts().add(bookThought);
         bookService.create(_book);
         bookThoughtService.create(bookThought);
 
