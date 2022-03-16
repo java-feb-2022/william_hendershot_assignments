@@ -2,6 +2,7 @@ package com.codingdojo.book_club.mvc.models;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -48,11 +49,15 @@ public class Book {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "posted_by_user_id")
-    private User user;
+    private User userPostedBy;
 
     @OneToMany(mappedBy = "book", fetch = FetchType.LAZY)
     @JsonIgnore
     private List<BookThought> bookThoughts;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "borrowed_by_user_id")
+    private User userBorrowedBy;
 
     public Book() {}
 
@@ -63,6 +68,21 @@ public class Book {
         this.author = author;
     }
 
+    @Override
+    public boolean equals (Object o) {
+        
+        if (this == o) { return true; }
+
+        if (o == null || getClass() != o.getClass()) { return false; }
+
+        Book that = (Book) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 
     @PrePersist
     protected void onCreate() {
@@ -115,12 +135,12 @@ public class Book {
         this.author = author;
     }
 
-    public User getUser() {
-        return user;
+    public User getUserPostedBy() {
+        return userPostedBy;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserPostedBy(User user) {
+        this.userPostedBy = user;
     }
 
     public List<BookThought> getBookThoughts() {
@@ -131,10 +151,18 @@ public class Book {
         this.bookThoughts = bookThoughts;
     }
 
+    public User getUserBorrowedBy() {
+        return userBorrowedBy;
+    }
+
+    public void setUserBorrowedBy(User userBorrowedBy) {
+        this.userBorrowedBy = userBorrowedBy;
+    }
+
     @Override
     public String toString() {
         return "Book [author=" + author + ", bookThoughts=" + bookThoughts + ", createdAt=" + createdAt + ", id=" + id
-                + ", title=" + title + ", updatedAt=" + updatedAt + ", user=" + user + "]";
+                + ", title=" + title + ", updatedAt=" + updatedAt + ", user=" + userPostedBy + "]";
     }
 
     

@@ -2,6 +2,7 @@ package com.codingdojo.book_club.mvc.models;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -57,12 +58,16 @@ public class User {
     private String confirm;
     
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private List<Book> books;
+    private List<Book> booksPosted;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     @JsonIgnore
     private List<BookThought> booksThoughts;
     
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<Book> booksBorrowed;
+
     public User() {}
 
     public User(
@@ -70,6 +75,22 @@ public class User {
             @NotEmpty(message = "A valid email address is required!") @Email(message = "Please enter a valid email address!") String email) {
         this.name = name;
         this.email = email;
+    }
+
+    @Override
+    public boolean equals (Object o) {
+        
+        if (this == o) { return true; }
+
+        if (o == null || getClass() != o.getClass()) { return false; }
+
+        User that = (User) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
     @PrePersist
@@ -139,12 +160,12 @@ public class User {
         this.updatedAt = updatedAt;
     }
 
-    public List<Book> getBooks() {
-        return books;
+    public List<Book> getBooksPosted() {
+        return booksPosted;
     }
 
-    public void setBooks(List<Book> books) {
-        this.books = books;
+    public void setBooksPosted(List<Book> books) {
+        this.booksPosted = books;
     }
 
     public List<BookThought> getBooksThoughts() {
@@ -153,6 +174,14 @@ public class User {
 
     public void setBooksThoughts(List<BookThought> booksThoughts) {
         this.booksThoughts = booksThoughts;
+    }
+
+    public List<Book> getBooksBorrowed() {
+        return booksBorrowed;
+    }
+
+    public void setBooksBorrowed(List<Book> booksBorrowed) {
+        this.booksBorrowed = booksBorrowed;
     }
 
     @Override

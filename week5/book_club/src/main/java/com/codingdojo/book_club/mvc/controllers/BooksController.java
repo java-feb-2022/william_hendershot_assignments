@@ -95,7 +95,7 @@ public class BooksController {
 
         System.out.println(bookThought);
         Book _book = bookThought.getBook();
-        _book.setUser(bookThought.getUser());
+        _book.setUserPostedBy(bookThought.getUser());
         System.out.println(_book);
         bookService.create(_book);
         bookThoughtService.create(bookThought);
@@ -185,7 +185,7 @@ public class BooksController {
 
         Book book = bookService.get(id);
         System.out.println(book);
-        if (book.getUser().getId().equals((Long) session.getAttribute("user_id"))) {
+        if (book.getUserPostedBy().getId().equals((Long) session.getAttribute("user_id"))) {
             bookService.delete(book);
         }
 
