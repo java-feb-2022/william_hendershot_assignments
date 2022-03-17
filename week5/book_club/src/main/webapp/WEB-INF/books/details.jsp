@@ -6,4 +6,5 @@
         <h1>Showing ${book.title}</h1>
     </div>
     <books:details/>
+    <booksThoughts:list/>
 </general:layout>

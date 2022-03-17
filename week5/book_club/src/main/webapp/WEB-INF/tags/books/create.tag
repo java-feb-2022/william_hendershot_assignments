@@ -20,7 +20,7 @@
                         <form:textarea path="thought" rows="3" class="form-control" name="book_thought"></form:textarea>
                     </div>
                     <div class="row mb-3">
-                        <form:input path="user.id" type="hidden" class="form-control" name="user_id" value="${user.id}"/>
+                        <form:input path="user" type="hidden" class="form-control" name="user_id" value="${user_id}"/>
                     </div>
                     <div class="row justify-content-end">
                         <button type="submit" class="col-sm-3 btn btn-primary">Submit</button>

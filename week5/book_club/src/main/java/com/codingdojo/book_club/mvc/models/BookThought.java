@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.validation.Valid;
 import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -40,6 +41,7 @@ public class BookThought {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
+    @Valid
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "book_id", referencedColumnName = "id")
     private Book book;
@@ -113,8 +115,14 @@ public class BookThought {
 
     @Override
     public String toString() {
-        return "BookThought [book=" + book + ", created_at=" + createdAt + ", id=" + id + ", thought=" + thought
-                + ", updated_at=" + updatedAt + ", user=" + user + "]";
+        return String.format("BookThought [book=[id=%d, title=%s, author=%s], user=[id=%d, name=%s], thought=%s]", 
+            this.book.getId(),
+            this.book.getTitle(),
+            this.book.getAuthor(),
+            this.user.getId(),
+            this.user.getName(),
+            this.thought
+            );
     }
 
     
