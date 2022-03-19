@@ -87,11 +87,14 @@ public class ProjectManagerController {
             return "redirect:/";
         }
 
+        projects.validate(newProject, result);
+
         if (result.hasErrors()) {
             redirAttr.addFlashAttribute("org.springframework.validation.BindingResult.new_project", result);
             redirAttr.addFlashAttribute("new_project", newProject);
             return "redirect:/projects/new";
         }
+
         Project project =  projects.create(newProject);
         User user = users.getById((Long) session.getAttribute("user_id"));
         projects.joinProject(project, user);
