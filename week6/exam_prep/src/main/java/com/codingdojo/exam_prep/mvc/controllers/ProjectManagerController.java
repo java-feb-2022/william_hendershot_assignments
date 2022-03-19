@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -124,4 +125,74 @@ public class ProjectManagerController {
 
         return "redirect:/projects";
     }
+
+    @GetMapping("/projects/{id}")
+    public String showProjectDetails(
+        Model model,
+        HttpSession session,
+        @PathVariable("id") Long id
+    ) {
+
+        if (session.getAttribute("user_id") == null || (Long) session.getAttribute("user_id") <= 0) { 
+            return "redirect:/";
+        }
+
+        Project project = projects.getById(id);
+
+        model.addAttribute("page_title", project.getTitle());
+        model.addAttribute("project", project);
+
+        return "projects/show_one.jsp";
+    }
+
+    @GetMapping("/projects/{id}/edit")
+    public String showProjectEdit(
+        Model model,
+        HttpSession session,
+        @PathVariable("id") Long id
+    ) {
+
+        if (session.getAttribute("user_id") == null || (Long) session.getAttribute("user_id") <= 0) { 
+            return "redirect:/";
+        }
+
+        Project project = projects.getById(id);
+
+        model.addAttribute("page_title", project.getTitle());
+        model.addAttribute("project", project);
+        System.out.println(project);
+
+        return "projects/edit.jsp";
+    }
+
+    @PutMapping("/projects/{id}")
+    public String editProject (
+        HttpSession session,
+        @PathVariable("id") Long id,
+        @Valid @ModelAttribute("project") Project project,
+        BindingResult result,
+        RedirectAttributes redirAttr
+    ) {
+
+        if (session.getAttribute("user_id") == null || (Long) session.getAttribute("user_id") <= 0) { 
+            return "redirect:/";
+        }
+
+        if (result.hasErrors()) {
+            System.out.println(result);
+            redirAttr.addFlashAttribute("org.springframework.validation.BindingResult.project", result);
+            redirAttr.addFlashAttribute("project", project);
+            return "redirect:/projects/{id}/edit";
+        }
+
+        Project _project = projects.getById(id);
+        _project.setTitle(project.getTitle());
+        _project.setDescription(project.getDescription());
+        _project.setDueDate(project.getDueDate());
+
+        projects.update(_project);
+
+        return "redirect:/projects/{id}";
+    }
+
 }

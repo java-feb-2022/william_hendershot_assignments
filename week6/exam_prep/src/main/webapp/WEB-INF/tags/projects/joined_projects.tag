@@ -16,12 +16,12 @@
                 <td>${project.teamLead.firstName}</td>
                 <td>${project.dueDate}</td>
                 <td class="d-flex flex-row justify-content-around">
-                    
+                    <c:if test="${user_id == project.teamLead.id}">
                         <a href='/projects/${project.id}/edit'>Edit</a>
-                    
-                    <p>||</p>
+                        <p>||</p>
+                    </c:if>
                     <form method="post" action="/projects/${project.id}/leave">
-                        <p class="text-decoration-underline text-primary" onclick="this.parentNode.submit(); return false;">Leave team</p>
+                        <p class="text-decoration-underline text-primary" onclick="this.parentNode.submit();">Leave team</p>
                     </form>
                 </td>
             </tr>

@@ -17,7 +17,7 @@
                 <td>${project.dueDate}</td>
                 <td>
                     <form method="post" action="/projects/${project.id}/join">
-                        <p class="text-decoration-underline text-primary" onclick="this.parentNode.submit(); return false;">Join team</p>
+                        <p class="text-decoration-underline text-primary" onclick="this.parentNode.submit();">Join team</p>
                     </form>
                 </td>
             </tr>
