@@ -1,16 +1,21 @@
 package com.codingdojo.exam_prep.mvc.controllers;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import com.codingdojo.exam_prep.mvc.models.Project;
+import com.codingdojo.exam_prep.mvc.models.Task;
 import com.codingdojo.exam_prep.mvc.models.User;
 import com.codingdojo.exam_prep.mvc.services.ProjectService;
+import com.codingdojo.exam_prep.mvc.services.TaskService;
 import com.codingdojo.exam_prep.mvc.services.UserService;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,10 +28,12 @@ public class ProjectManagerController {
     
     private final UserService users;
     private final ProjectService projects;
+    private final TaskService tasks;
 
-    public ProjectManagerController(UserService users, ProjectService projects) {
+    public ProjectManagerController(UserService users, ProjectService projects, TaskService tasks) {
         this.users = users;
         this.projects = projects;
+        this.tasks = tasks;
     }
 
     @GetMapping("/projects")
@@ -138,9 +145,11 @@ public class ProjectManagerController {
         }
 
         Project project = projects.getById(id);
+        List<Task> tasks = project.getTasks();
 
         model.addAttribute("page_title", project.getTitle());
         model.addAttribute("project", project);
+        model.addAttribute("project_tasks", tasks);
 
         return "projects/show_one.jsp";
     }
@@ -195,4 +204,73 @@ public class ProjectManagerController {
         return "redirect:/projects/{id}";
     }
 
+    @DeleteMapping("projects/{id}")
+    public String deleteProject(
+        HttpSession session,
+        @PathVariable("id") Long id
+    ) {
+
+        if (session.getAttribute("user_id") == null || (Long) session.getAttribute("user_id") <= 0) { 
+            return "redirect:/";
+        }
+
+        Project project = projects.getById(id);
+        if (project.getTeamLead().getId().equals((Long) session.getAttribute("user_id"))) {
+            projects.delete(project);
+        }
+
+        return "redirect:/books";
+    }
+
+    @GetMapping("projects/{id}/tasks")
+    public String showProjectTasks(
+        Model model,
+        HttpSession session, 
+        @PathVariable("id") Long id
+    ) {
+
+        if (session.getAttribute("user_id") == null || (Long) session.getAttribute("user_id") <= 0) { 
+            return "redirect:/";
+        }
+
+        Project project = projects.getById(id);
+        User user = users.getById((Long) session.getAttribute("user_id"));
+
+        model.addAttribute("page_title", project.getTitle());
+        model.addAttribute("project", project);
+        System.out.printf("***** Old task?: %s%n", model.getAttribute("new_task"));
+        if (!model.containsAttribute("new_task")) {
+            Task task = new Task();
+            task.setProject(project);
+            task.setUser(user);
+            model.addAttribute("new_task", task);
+        }
+
+        return "projects/show_tasks.jsp";
+    }
+
+    @PostMapping("projects/{project_id}/tasks")
+    public String createTask(
+        HttpSession session,
+        @PathVariable("project_id") Long project_id,
+        @Valid @ModelAttribute("new_task") Task newTask,
+        BindingResult result,
+        RedirectAttributes redirAttr
+    ) {
+
+        if (session.getAttribute("user_id") == null || (Long) session.getAttribute("user_id") <= 0) { 
+            return "redirect:/";
+        }
+
+        if (result.hasErrors()) {
+            System.out.println(result);
+            redirAttr.addFlashAttribute("org.springframework.validation.BindingResult.new_task", result);
+            redirAttr.addFlashAttribute("new_task", newTask);
+            return "redirect:/projects/{project_id}/tasks";
+        }
+
+        tasks.create(newTask);
+
+        return "redirect:/projects/{project_id}/tasks";
+    }
 }

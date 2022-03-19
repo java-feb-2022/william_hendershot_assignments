@@ -75,6 +75,9 @@ public class User {
     )
     private List<Project> projectsJoined;
 
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Task> myTasks;
+
     public User() {}
 
     @Override
@@ -102,6 +105,14 @@ public class User {
     @PreUpdate()
     protected void onUpdate() {
         this.updatedAt = new Date();
+    }
+
+    public List<Task> getMyTasks() {
+        return myTasks;
+    }
+
+    public void setMyTasks(List<Task> myTasks) {
+        this.myTasks = myTasks;
     }
 
     public List<Project> getProjectsJoined() {

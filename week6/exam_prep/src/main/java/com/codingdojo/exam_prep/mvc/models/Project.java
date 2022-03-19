@@ -14,9 +14,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -66,6 +68,9 @@ public class Project {
     )
     private List<User> projectMembers;
 
+    @OneToMany(mappedBy = "project" ,fetch = FetchType.LAZY)
+    private List<Task> tasks;
+
     public Project() {}
 
     @Override
@@ -98,7 +103,16 @@ public class Project {
     @Override
     public String toString() {
         return "Project [createdAt=" + createdAt + ", description=" + description + ", dueDate=" + dueDate + ", id="
-                + id + ", teamLead=" + teamLead + ", title=" + title + ", updatedAt=" + updatedAt + ", projectMembers=" + projectMembers +"]";
+                + id + ", teamLead=" + teamLead + ", title=" + title + ", updatedAt=" + updatedAt + ", projectMembers=" + projectMembers +
+                ", tasks=" + tasks + "]";
+    }
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
     }
 
     public List<User> getProjectMembers() {

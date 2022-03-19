@@ -2,8 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/tags/general/taglibs.jspf" %>
 <general:layout>
-    <projects:details/>
     <div class="container">
-        <a href="/projects/${project.id}/tasks">See tasks!</a>
+        <h1>Project: ${project.title}</h1>
+        <p>Project Lead: ${project.teamLead.firstName}</p>
     </div>
+    <tasks:create/>
+    <tasks:list/>
 </general:layout>

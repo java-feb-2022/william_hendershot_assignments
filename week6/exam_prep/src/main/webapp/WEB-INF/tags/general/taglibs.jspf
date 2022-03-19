@@ -5,4 +5,5 @@
 <%@ taglib prefix = "general" tagdir = "/WEB-INF/tags/general" %>
 <%@ taglib prefix = "login" tagdir = "/WEB-INF/tags/login" %>
 <%@ taglib prefix = "projects" tagdir = "/WEB-INF/tags/projects" %>
+<%@ taglib prefix = "tasks" tagdir = "/WEB-INF/tags/tasks" %>
 
