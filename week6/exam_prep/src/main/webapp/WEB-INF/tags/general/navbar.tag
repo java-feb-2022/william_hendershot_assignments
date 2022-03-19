@@ -13,9 +13,9 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" role="button" id="projectsDropdown" data-bs-toggle="dropdown" aria-current="page" href="#">Projects</a>
                     <ul class="dropdown-menu" aria-labelledby="projectsDropdown">
-                        <li><a class="dropdown-item" href="/projects">List Projects</a></li>
+                        <li><a class="dropdown-item" href="/projects">Dashboard</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="/projects/new">Add Project</a></li>
+                        <li><a class="dropdown-item" href="/projects/new">New Project</a></li>
                     </ul>
                 </li>
                 <c:if test="${user_id != null && user_id > 0}">
