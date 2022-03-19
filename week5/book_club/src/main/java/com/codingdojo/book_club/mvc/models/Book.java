@@ -19,8 +19,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -52,7 +50,6 @@ public class Book {
     private User userPostedBy;
 
     @OneToMany(mappedBy = "book", fetch = FetchType.LAZY)
-    @JsonIgnore
     private List<BookThought> bookThoughts;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -162,7 +159,7 @@ public class Book {
     @Override
     public String toString() {
         return "Book [author=" + author + ", bookThoughts=" + bookThoughts + ", createdAt=" + createdAt + ", id=" + id
-                + ", title=" + title + ", updatedAt=" + updatedAt + ", user=" + userPostedBy + "]";
+                + ", title=" + title + ", updatedAt=" + updatedAt + "]";
     }
 
     

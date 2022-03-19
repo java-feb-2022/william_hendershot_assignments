@@ -1,7 +1,5 @@
 package com.codingdojo.book_club.mvc.controllers;
 
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -65,9 +63,6 @@ public class BooksController {
         
         model.addAttribute("page_title", "Add a New Book");
         
-        // if (!model.containsAttribute("book")) {
-        //     model.addAttribute("book", new Book());
-        // }
         if (!model.containsAttribute("book_thought")) {
             BookThought bookThought = new BookThought();
             model.addAttribute("book_thought", bookThought);
@@ -89,10 +84,6 @@ public class BooksController {
         }
 
         if (result.hasErrors()) {
-            System.out.println(result);
-            System.out.println("********************************");
-            System.out.println(bookThought);
-            System.out.println("********************************");
             redirAttr.addFlashAttribute("org.springframework.validation.BindingResult.book_thought", result);
             redirAttr.addFlashAttribute("book_thought", bookThought);
             return "redirect:/books/new";
@@ -121,13 +112,11 @@ public class BooksController {
         }
 
         Book book = bookService.get(id);
-        List<BookThought> bookthoughts = bookThoughtService.getAllByBook(book);
         User user = userService.get((Long) session.getAttribute("user_id"));
 
         model.addAttribute("page_title", book.getTitle());
         model.addAttribute("book", book);
         model.addAttribute("user", user);
-        //model.addAttribute("book_thoughts", bookthoughts);
         System.out.println(book);
 
         return "books/details.jsp";

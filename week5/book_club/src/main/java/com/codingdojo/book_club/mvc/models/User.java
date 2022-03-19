@@ -19,8 +19,6 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -57,15 +55,13 @@ public class User {
     @Size(min = 8, max = 255, message = "The comfirm password must be between 8 and 255 characters")
     private String confirm;
     
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "userPostedBy", fetch = FetchType.LAZY)
     private List<Book> booksPosted;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    @JsonIgnore
     private List<BookThought> booksThoughts;
     
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    @JsonIgnore
+    @OneToMany(mappedBy = "userBorrowedBy", fetch = FetchType.LAZY)
     private List<Book> booksBorrowed;
 
     public User() {}
