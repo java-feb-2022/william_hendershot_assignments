@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import com.codingdojo.exam_prep.mvc.models.Project;
+import com.codingdojo.exam_prep.mvc.models.User;
 import com.codingdojo.exam_prep.mvc.services.ProjectService;
 import com.codingdojo.exam_prep.mvc.services.UserService;
 
@@ -12,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -36,9 +38,12 @@ public class ProjectManagerController {
             return "redirect:/";
         }
 
-        model.addAttribute("page_title", "Project Manager Dashboard");
-        model.addAttribute("projects", projects.getAll());
-        model.addAttribute("user", users.getById((Long) session.getAttribute("user_id")));
+        User user = users.getById((Long) session.getAttribute("user_id"));
+
+        model.addAttribute("page_title", "Project Manager Dashboard");        
+        model.addAttribute("joinable_projects", projects.getAllJoinableProjectsByUser(user));
+        model.addAttribute("my_projects", projects.getAllByTeamMember(user));
+        model.addAttribute("user", user);
 
         return "projects/dashboard.jsp";
     }
@@ -79,8 +84,43 @@ public class ProjectManagerController {
             redirAttr.addFlashAttribute("new_project", newProject);
             return "redirect:/projects/new";
         }
+        Project project =  projects.create(newProject);
+        User user = users.getById((Long) session.getAttribute("user_id"));
+        projects.joinProject(project, user);
 
-        projects.create(newProject);
+        return "redirect:/projects";
+    }
+
+    @PostMapping("/projects/{id}/join")
+    public String userJoinsProject(
+        HttpSession session,
+        @PathVariable("id") Long id
+    ) {
+
+        if (session.getAttribute("user_id") == null || (Long) session.getAttribute("user_id") <= 0) { 
+            return "redirect:/";
+        }
+
+        User user = users.getById((Long) session.getAttribute("user_id"));
+        Project project = projects.getById(id);
+        projects.joinProject(project, user);
+
+        return "redirect:/projects";
+    }
+
+    @PostMapping("/projects/{id}/leave")
+    public String userLeavesProject(
+        HttpSession session,
+        @PathVariable("id") Long id
+    ) {
+
+        if (session.getAttribute("user_id") == null || (Long) session.getAttribute("user_id") <= 0) { 
+            return "redirect:/";
+        }
+
+        User user = users.getById((Long) session.getAttribute("user_id"));
+        Project project = projects.getById(id);
+        projects.leaveProject(project, user);
 
         return "redirect:/projects";
     }

@@ -1,6 +1,7 @@
 package com.codingdojo.exam_prep.mvc.models;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -10,11 +11,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -44,6 +48,7 @@ public class Project {
     @Size(min = 3, message = "Description must be at least 3 characters")
     private String description;
 
+    @NotNull
     @Column(name = "due_date")
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date dueDate;
@@ -52,6 +57,14 @@ public class Project {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "team_lead_user_id")
     private User teamLead;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+        name = "team_members", 
+        joinColumns = @JoinColumn(name = "project_id"), 
+        inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private List<User> projectMembers;
 
     public Project() {}
 
@@ -85,7 +98,15 @@ public class Project {
     @Override
     public String toString() {
         return "Project [createdAt=" + createdAt + ", description=" + description + ", dueDate=" + dueDate + ", id="
-                + id + ", teamLead=" + teamLead + ", title=" + title + ", updatedAt=" + updatedAt + "]";
+                + id + ", teamLead=" + teamLead + ", title=" + title + ", updatedAt=" + updatedAt + ", projectMembers=" + projectMembers +"]";
+    }
+
+    public List<User> getProjectMembers() {
+        return projectMembers;
+    }
+
+    public void setProjectMembers(List<User> projectMembers) {
+        this.projectMembers = projectMembers;
     }
 
     public Long getId() {

@@ -21,7 +21,10 @@
                         <form:errors path="dueDate"/>
                     </div>
                     <div class="row mb-3">
-                        <form:input path="teamLead" type="hidden" class="form-control" name="team_leaduser_id" value="${user_id}"/>
+                        <form:input path="teamLead" type="hidden" class="form-control" name="team_lead_user_id" value="${user_id}"/>
+                    </div>
+                    <div class="row mb-3">
+                        <form:input path="projectMembers" type="hidden" class="form-control" name="project_members" value="${projectMembers}"/>
                     </div>
                     <div class="row justify-content-end">
                         <button type="submit" class="col-sm-3 btn btn-primary">Submit</button>

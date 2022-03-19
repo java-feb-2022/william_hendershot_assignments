@@ -10,6 +10,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
@@ -64,6 +67,14 @@ public class User {
     @OneToMany(mappedBy = "teamLead", fetch = FetchType.LAZY)
     private List<Project> myProjectsLead;
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+        name = "team_members", 
+        joinColumns = @JoinColumn(name = "user_id"), 
+        inverseJoinColumns = @JoinColumn(name = "project_id")
+    )
+    private List<Project> projectsJoined;
+
     public User() {}
 
     @Override
@@ -91,6 +102,14 @@ public class User {
     @PreUpdate()
     protected void onUpdate() {
         this.updatedAt = new Date();
+    }
+
+    public List<Project> getProjectsJoined() {
+        return projectsJoined;
+    }
+
+    public void setProjectsJoined(List<Project> projectsJoined) {
+        this.projectsJoined = projectsJoined;
     }
 
     public List<Project> getMyProjectsLead() {

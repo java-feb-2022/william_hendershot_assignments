@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.codingdojo.exam_prep.mvc.models.Project;
+import com.codingdojo.exam_prep.mvc.models.User;
 import com.codingdojo.exam_prep.mvc.repositories.ProjectRepository;
 
 import org.springframework.stereotype.Service;
@@ -39,5 +40,25 @@ public class ProjectService {
             return project.get();
         }
         return null;
+    }
+
+    public List<Project> getAllByTeamMember (User user) {
+        return projectRepository.findAllByTeamMemberUserId(user.getId());
+    }
+
+    public List<Project> getAllJoinableProjectsByUser (User user) {
+        return projectRepository.findAllJoinableProjectsByUserId(user.getId());
+    }
+
+    public void joinProject(Project project, User user) {
+        List<User> projectMembers = project.getProjectMembers();
+        projectMembers.add(user);
+        projectRepository.save(project);
+    }
+
+    public void leaveProject(Project project, User user) {
+        List<User> projectMembers = project.getProjectMembers();
+        projectMembers.remove(user);
+        projectRepository.save(project);
     }
 }

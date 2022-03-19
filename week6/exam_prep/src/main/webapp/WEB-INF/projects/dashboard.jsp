@@ -12,4 +12,5 @@
     <div class="container">
         <p>Your Projects</p>
     </div>
+    <projects:joined_projects/>
 </general:layout>
