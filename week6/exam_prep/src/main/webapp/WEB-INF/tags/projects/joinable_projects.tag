@@ -14,7 +14,7 @@
             <tr>
                 <td><a href='/projects/${project.id}'>${project.title}</a></td>
                 <td>${project.teamLead.firstName}</td>
-                <td>${project.dueDate}</td>
+                <td><fmt:formatDate pattern='MMM dd, yyyy' value='${project.dueDate}'/></td>
                 <td>
                     <form method="post" action="/projects/${project.id}/join">
                         <p class="text-decoration-underline text-primary" onclick="this.parentNode.submit();">Join team</p>

@@ -14,7 +14,7 @@
             <tr>
                 <td><a href='/projects/${project.id}'>${project.title}</a></td>
                 <td>${project.teamLead.firstName}</td>
-                <td>${project.dueDate}</td>
+                <td><fmt:formatDate pattern='MMM dd, yyyy' value='${project.dueDate}'/></td>
                 <td class="d-flex flex-row justify-content-around">
                     <c:if test="${user_id == project.teamLead.id}">
                         <a href='/projects/${project.id}/edit'>Edit</a>
