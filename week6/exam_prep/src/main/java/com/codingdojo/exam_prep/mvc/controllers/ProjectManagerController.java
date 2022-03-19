@@ -171,7 +171,9 @@ public class ProjectManagerController {
         Project project = projects.getById(id);
 
         model.addAttribute("page_title", project.getTitle());
-        model.addAttribute("project", project);
+        if (!model.containsAttribute("project")) {
+            model.addAttribute("project", project);
+        }
         System.out.println(project);
 
         return "projects/edit.jsp";
@@ -186,9 +188,12 @@ public class ProjectManagerController {
         RedirectAttributes redirAttr
     ) {
 
+        
         if (session.getAttribute("user_id") == null || (Long) session.getAttribute("user_id") <= 0) { 
             return "redirect:/";
         }
+
+        projects.validate(project, result);
 
         if (result.hasErrors()) {
             System.out.println(result);
