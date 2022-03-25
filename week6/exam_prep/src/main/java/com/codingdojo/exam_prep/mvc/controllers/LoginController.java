@@ -31,7 +31,7 @@ public class LoginController {
     ) {
 
         if (session.getAttribute("user_id") != null) {
-            return "redirect:/books";
+            return "redirect:/projects";
         }
         model.addAttribute("page_title", "Project Manager");
         if (!model.containsAttribute("new_user")) {
